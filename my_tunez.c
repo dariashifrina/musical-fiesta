@@ -27,11 +27,12 @@ void print_list(struct song_node *p){
 }
 //prints the entire list   
 
-struct song_node * insert_front(struct song_node *p, char n[], char a[]){
+struct song_node * insert_front(struct song_node *p, char n[256], char a[256]){
   struct song_node *newbie = malloc(sizeof(struct song_node));
   strcpy(newbie->name, n);
   //printf("%s", newbie->name);
   strcpy(newbie->artist,a);
+  //printf("inserting this artist front: %s", newbie->artist);
   newbie->next = p;
   return newbie;
 }
@@ -78,10 +79,10 @@ void remove_song(struct song_node * song){
 }
 
 int main(){
-  struct song_node *yay = NULL;
-  insert_front(yay, "How Far I'll Go", "Auli'i Cravalho");
-  // insert(yay, "How Far I'll Go", "Auli'i Cravalho");
-  print_list(yay);
+  struct song_node yay;
+  yay.next=0;
+  insert_front(&yay, "How Far I'll Go", "Auli'i Cravalho");
+  print_list(&yay);
   return 0;
 }
 
