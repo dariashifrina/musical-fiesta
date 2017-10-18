@@ -79,10 +79,9 @@ void remove_song(struct song_node * song){
 }
 
 int main(){
-  struct song_node yay;
-  yay.next=0;
-  insert_front(&yay, "How Far I'll Go", "Auli'i Cravalho");
-  print_list(&yay);
+  struct song_node *yay = 0; 
+  yay= insert_front(yay, "How Far I'll Go", "Auli'i Cravalho");
+  print_list(yay);
   return 0;
 }
 
