@@ -1,13 +1,12 @@
 all: list.o lib.o main.o
-	gcc -o music list.o lib.o main.o
-list.o: list.c list.h
-	gcc -c list.c
-lib.o: lib.c lib.h
-	gcc -c lib.c
-main.o: main.c lib.h list.h
+	gcc -o music my_tunez.o linked_list.o main.o
+my_tunez.o: my_tunez.c my_tunez.h
+	gcc -c my_tunez.c
+linked_list.o: linked)list.c linked_list.h
+	gcc -c linked_list.c
+main.o: main.c linked_list.h my_tunez.h
 	gcc -c main.c
-run:
+run: 
 	./music
 clean:
 	rm *.o
-	rm music
