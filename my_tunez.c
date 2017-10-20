@@ -52,58 +52,47 @@ struct song_node * insert_front(struct song_node *p, char n[256], char a[256]){
 
 //inserts node in order 
 struct song_node * insert(struct song_node *p, char n[256], char a[256]){
-  if(!p){
+  struct song_node * head = p;
+  struct song_node * newbie = malloc(sizeof(struct song_node));
+  
+  if(!p || (strcmp(a, p->artist)) && strcmp(n, p->name < 0) || (strcmp(a,p->a)<0))){
     return insert_front(p, n, a);
   }
-  int counter = 0;
-  while(p){
-    if ((strcmp(p->artist, a) == 0 ) || (strcmp(p->artist,a) < 0)){
-    counter +=1;
-    p= p->next;
-  }
-  }
-  /*while(p->next || (strcmp(p->artist, a) < 0)){
-    counter += 1;
-    p = p->next;
-    }*/
-  return insert_index(p, n, a, counter);
-  /*struct song_node *front = p;
-  while(p->next){
-    if(strcmp(p->artist,a) == 0){
-      if(strcmp(p->name, n) < 0){
-	insert_help(p, n, a);
-      }
-    }
-    if(strcmp(p->artist,a)<0){
-	insert_help(p, n, a);
-      }
-    }
-    p=p->next;
-  insert_help(p,n,a);
-  return front;*/
-  
-}
-
-struct song_node * insert_index(struct song_node *p, char n[256], char a[256], int index){
-  struct song_node *newbie= malloc(sizeof(struct song_node));
-  strcpy(newbie->artist, a);
   strcpy(newbie->name, n);
-  //get prev
-  struct song_node *prev = node_index(p, index-1);
-  struct song_node *nexto = node_index(p, index + 1);
-  prev->next = newbie;
-  newbie->next = nexto;
-  return p;
-}
-  
-  
-/*void insert_help(struct song_node *p, char n[256], char a[256]){
-  struct song_node *newbie= malloc(sizeof(struct song_node));
-  newbie->next = p->next;
-  strcpy(newbie->name,n);
   strcpy(newbie->artist,a);
-  p->next = newbie;
-  }*/
+  while(p){
+    // if artist are the same, name goes before
+    if(p->next && strcmp(a,p->artist) && !strcmp(a,p->next->artist) && strcmp(n,p->next->name)<0 ){
+      newbie->next = p->next;
+       p->next=newbie;
+       return head;
+    }
+      // if the artist are the same, name goes after
+    if (!(strcmp(a, p->artist))){
+	if(strcmp(n, p->name) > 0){
+	  newbie->next = p->next;
+	  p->next=newbie;
+	  return head;
+	}
+    }
+    else{
+      if((strcmp(a,p->artist)>0) && (!p->next ||strcmp(a,p->next->artist)<0)){
+	newbie->next = p->next;
+	p->next=newbie;
+	return head;
+      }
+      p=p->next;
+    }
+  }
+    newbie->next = p->next;
+    p->next=newbie;
+    return head;
+}
+    
+	
+    
+  
+       
 // inserts node alphabetically
 struct song_node * free_list(struct song_node *p){
   struct song_node *f = p;
