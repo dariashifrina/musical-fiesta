@@ -14,10 +14,10 @@ struct song_node * node_index(struct song_node * p, int index);
 struct song_node * insert(struct song_node *p, char n[], char a[]);
 void insert_help(struct song_node *, char n[256], char a[256]);
 struct song_node * free_list(struct song_node *p);
-struct song_node * find_song(struct song_node *p, char artist[], char song[]);
-struct song_node * find_artist(struct song_node *p, char artist[]);
-struct song_node * random_song(struct song_node *);
-void remove_song(struct song_node *);
+char * find_song(struct song_node *p, char artist[], char song[]);
+char * find_artist(struct song_node *p, char artist[]);
+char * random_song(struct song_node *);
+void remove_song(struct song_node *, char song[], char artist[]);
 struct song_node * insert_index(struct song_node *p, char n[256], char a[256], int index);
 //returns size of song_node
 int list_size(struct song_node *p){
@@ -121,39 +121,58 @@ struct song_node * free_list(struct song_node *p){
   return f;
 }
 
-struct song_node * find_song(struct song_node* p, char song[], char artist[]){
+char * find_song(struct song_node* p, char song[], char artist[]){
   struct song_node *ret = malloc(sizeof(struct song_node));
   while(p){
     if(compare_names(song, p) == 0){
       ret = p;
-      return ret;
+      return ret->name;
     }
-    p= p-> next;
+    p= p->next;
+  }
+  return 0;
+}
+int find_song_index(struct song_node *p, char song[], char artist[]){
+  int count=0;
+  while(p){
+    if(compare_names(song, p) == 0){
+      return count;
+    }
+    count++;
+    p=p->next;
   }
   return 0;
 }
 
-struct song_node * find_artist(struct song_node*p, char artist[]){
+    
+
+char * find_artist(struct song_node*p, char artist[]){
   struct song_node *ret = malloc(sizeof(struct song_node));
   while(p){
     if(compare_artists(artist, p) == 0){
       ret = p;
-      return ret;
+      return ret->artist;
     }
     p= p-> next;
   }
   return 0;
 }
 
-struct song_node * random_song(struct song_node * song){
+char * random_song(struct song_node * song){
   srand(time(NULL));
   int wow = rand() * list_size(song);
-  printf("%d", list_size(song));
+  // printf("%d", list_size(song));
   struct song_node * randomsong = node_index(song, wow);
-  return randomsong;
+  return randomsong->name;
 }
 
-void remove_song(struct song_node * song){
+void remove_song(struct song_node * p, char song[],char artist[]){
+  int i = find_song_index(p,song,artist);
+  struct song_node * before = node_index(p,i-1);
+  struct song_node * after = node_index(p, i+1);
+  before->next=after;
+  
+  
 }
 
 int main(int argc, char *argv[]){
@@ -164,11 +183,14 @@ int main(int argc, char *argv[]){
   yay= insert(yay, "Single Ladies", "Beyonce" );
   yay = insert(yay, "Countdown", "Beyonce");
   print_list(yay);
-  printf("testing to see if single ladies can be found: %p\n", find_song(yay, "Single Ladies", "Beyonce"));
-  printf("testing to see if beyonce can be found: %p\n", find_artist(yay,"Beyonce"));
+  printf("testing to see if single ladies can be found: %s\n", find_song(yay, "Single Ladies", "Beyonce"));
+  printf("testing to see if beyonce can be found: %s\n", find_artist(yay,"Beyonce"));
   //printf("%d", list_size(yay));
-  printf("testing random song pointer: %p\n", random_song(yay));
+  printf("testing random song pointer: %s\n", random_song(yay));
+  printf("testing remove song: \n");
+  remove_song(yay, "Single Ladies", "Beyonce");
+  print_list(yay);
   printf("finishing\n");
+  
   return 0;
 }
-
