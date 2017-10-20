@@ -14,8 +14,8 @@ struct song_node * node_index(struct song_node * p, int index);
 struct song_node * insert(struct song_node *p, char n[], char a[]);
 void insert_help(struct song_node *, char n[256], char a[256]);
 struct song_node * free_list(struct song_node *p);
-char * find_song(struct song_node *p, char artist[], char song[]);
-char * find_artist(struct song_node *p, char artist[]);
+struct song_node * find_song(struct song_node *p, char artist[], char song[]);
+struct song_node * find_artist(struct song_node *p, char artist[]);
 char * random_song(struct song_node *);
 void remove_song(struct song_node *, char song[], char artist[]);
 struct song_node * insert_index(struct song_node *p, char n[256], char a[256], int index);
@@ -121,12 +121,12 @@ struct song_node * free_list(struct song_node *p){
   return f;
 }
 
-char * find_song(struct song_node* p, char song[], char artist[]){
+struct song_node * find_song(struct song_node* p, char song[], char artist[]){
   struct song_node *ret = malloc(sizeof(struct song_node));
   while(p){
     if(compare_names(song, p) == 0){
       ret = p;
-      return ret->name;
+      return ret;
     }
     p= p->next;
   }
@@ -146,12 +146,12 @@ int find_song_index(struct song_node *p, char song[], char artist[]){
 
     
 
-char * find_artist(struct song_node*p, char artist[]){
+struct song_node * find_artist(struct song_node*p, char artist[]){
   struct song_node *ret = malloc(sizeof(struct song_node));
   while(p){
     if(compare_artists(artist, p) == 0){
       ret = p;
-      return ret->artist;
+      return ret;
     }
     p= p-> next;
   }

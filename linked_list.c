@@ -12,108 +12,115 @@ void crt_lib(){
   }
 }
 
-void add_song(struct song_node *);
-struct song_node * find_songz(struct song_node *, char song[], char artist[]);
-struct song_node * find_artistz(struct song_node *, char artist[]);
-void print_song(char a);
+void add_song(char * song, char * artist);
+struct song_node * find_songz(char song[], char artist[]);
+struct song_node * find_artistz(char artist[]);
+void print_song(char artist[]);
 void print_artist(char artist[]);
 void print_library();
 void shuffle();
 void delete_song(char song[]);
 void delete_all();
 
-int letter_converter(char* a){
-  if(a = 'A'){
+int letter_converter(char a){
+  if(a == 'A'){
     return 1;
   }
-  if(a = 'B'){
+  if(a == 'B'){
     return 2;
   }
-  if(a = 'C'){
+  if(a == 'C'){
     return 3;
   }
-  if(a = 'D'){
+  if(a == 'D'){
     return 4;
   }
-  if(a = 'E'){
+  if(a == 'E'){
     return 5;
   }
-   if(a = 'F'){
+   if(a == 'F'){
     return 6;
   }
-  if(a = 'G'){
+  if(a == 'G'){
     return 7;
   }
-  if(a = 'H'){
+  if(a == 'H'){
     return 8;
   }
-  if(a = 'I'){
+  if(a == 'I'){
     return 9;
   }
-  if(a = 'J'){
+  if(a == 'J'){
     return 10;
   }
-   if(a = 'K'){
+   if(a == 'K'){
     return 11;
   }
-  if(a = 'L'){
+  if(a == 'L'){
     return 12;
   }
-  if(a = 'M'){
+  if(a == 'M'){
     return 13;
   }
-  if(a = 'N'){
+  if(a == 'N'){
     return 14;
   }
-  if(a = 'O'){
+  if(a == 'O'){
     return 15;
   }
-   if(a = 'P'){
+   if(a == 'P'){
     return 16;
   }
-  if(a = 'Q'){
+  if(a == 'Q'){
     return 17;
   }
-  if(a = 'R'){
+  if(a == 'R'){
     return 18;
   }
-  if(a = 'S'){
+  if(a == 'S'){
     return 19;
   }
-  if(a = 'T'){
+  if(a == 'T'){
     return 20;
   }
-   if(a = 'U'){
+   if(a == 'U'){
     return 21;
   }
-  if(a = 'V'){
+  if(a == 'V'){
     return 22;
   }
-  if(a = 'W'){
+  if(a == 'W'){
     return 23;
   }
-  if(a = 'X'){
+  if(a == 'X'){
     return 24;
   }
-  if(a = 'Y'){
+  if(a == 'Y'){
     return 25;
   }
-   if(a = 'Z'){
+   if(a == 'Z'){
     return 26;
   }
 }
 
-void add_song(struct song_node * song){
-  int place = letter_converter(song-->song[0]);
-  
-    
-    
-    } 
-struct song_node * find_songz(struct song_node * songnode, char song[], char artist[]){
-  return 0;
+void add_song(char * song, char * artist){
+  int place = letter_converter(song[0]);
+  library[place] = insert(library[place], song, artist);
+  //struct song_node * column = library[place];
+  //insert(column, 
+    }
+struct song_node * find_songz(char song[], char artist[]){
+  int place = letter_converter(song[0]);
+  return find_song(library[place], artist, song);
+}
+struct song_node * find_artistz(char artist[]){
+  int place = letter_converter(artist[0]);
+  return find_artist(library[place], artist);
 }
 
+void print_song(char artist[]){
+}
 int main(){
-  printf("%c", letter_converter("B"));
+  printf("%d\n", letter_converter('B'));
 }
 
