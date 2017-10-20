@@ -19,87 +19,87 @@ void print_song(char artist[]);
 void print_artist(char artist[]);
 void print_library();
 void shuffle();
-void delete_song(char song[]);
+void delete_song(char song[],char artist[]);
 void delete_all();
 
 int letter_converter(char a){
   if(a == 'A'){
-    return 1;
+    return 0;
   }
   if(a == 'B'){
-    return 2;
+    return 1;
   }
   if(a == 'C'){
-    return 3;
+    return 2;
   }
   if(a == 'D'){
-    return 4;
+    return 3;
   }
   if(a == 'E'){
-    return 5;
+    return 4;
   }
    if(a == 'F'){
-    return 6;
+    return 5;
   }
   if(a == 'G'){
-    return 7;
+    return 6;
   }
   if(a == 'H'){
-    return 8;
+    return 7;
   }
   if(a == 'I'){
-    return 9;
+    return 8;
   }
   if(a == 'J'){
-    return 10;
+    return 9;
   }
    if(a == 'K'){
-    return 11;
+    return 10;
   }
   if(a == 'L'){
-    return 12;
+    return 11;
   }
   if(a == 'M'){
-    return 13;
+    return 12;
   }
   if(a == 'N'){
-    return 14;
+    return 13;
   }
   if(a == 'O'){
-    return 15;
+    return 14;
   }
    if(a == 'P'){
-    return 16;
+    return 15;
   }
   if(a == 'Q'){
-    return 17;
+    return 16;
   }
   if(a == 'R'){
-    return 18;
+    return 17;
   }
   if(a == 'S'){
-    return 19;
+    return 18;
   }
   if(a == 'T'){
-    return 20;
+    return 19;
   }
    if(a == 'U'){
-    return 21;
+    return 20;
   }
   if(a == 'V'){
-    return 22;
+    return 21;
   }
   if(a == 'W'){
-    return 23;
+    return 22;
   }
   if(a == 'X'){
-    return 24;
+    return 23;
   }
   if(a == 'Y'){
-    return 25;
+    return 24;
   }
    if(a == 'Z'){
-    return 26;
+    return 25;
   }
 }
 
@@ -110,7 +110,7 @@ void add_song(char * song, char * artist){
   //insert(column, 
     }
 struct song_node * find_songz(char song[], char artist[]){
-  int place = letter_converter(song[0]);
+  int place = letter_converter(artist[0]);
   return find_song(library[place], artist, song);
 }
 struct song_node * find_artistz(char artist[]){
@@ -118,8 +118,32 @@ struct song_node * find_artistz(char artist[]){
   return find_artist(library[place], artist);
 }
 
-void print_song(char artist[]){
+void print_song(char letter){
+  print_list(library[letter_converter(letter)]);
 }
+
+void print_artist(char[]artist){
+  print_list(find_artistz);
+}
+void print_library(){
+  for(int i=0;i<26;i++){
+    print_list(library[i]);
+  }
+}
+void shuffle(){
+  for(int i=0; i>26; i++){
+    printf("%s\n",randomsong(library[i]));
+  }
+  
+  void delete_song(char song[],char artist[]){
+    remove_song(find_songz(song,artist));
+  }
+  void delete_all(){
+    for(int i=0;i<26;i++){
+      free_list(library[i]);
+    }
+  }
+		  
 int main(){
   printf("%d\n", letter_converter('B'));
 }
